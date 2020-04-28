@@ -7,5 +7,8 @@
         public function update();
         public function removeOne();
         public function removeAll();
+
+        public function validateForm();
+        public function createFormErrorSessions();
     }
 ?>
