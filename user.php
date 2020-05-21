@@ -10,17 +10,23 @@
         private $city_name;
         private $username;
         private $password;
+        private $image;
+        private $utc_timestamp;
+        private $offset;
 
-        function __construct($first_name, $last_name, $city_name, $username, $password){
+        function __construct($first_name, $last_name, $city_name, $username, $password, $image, $utc_timestamp, $offset){
             $this->first_name = $first_name;
             $this->last_name = $last_name;
             $this->city_name = $city_name;
             $this->username = $username;
             $this->password = $password;
+            $this->image = $image;
+            $this->utc_timestamp = $utc_timestamp;
+            $this->offset = $offset;
         }
 
         public static function create(){
-            $instance = new self($first_name, $last_name, $city_name, $username, $password);
+            $instance = new self($first_name, $last_name, $city_name, $username, $password, $image, $utc_timestamp, $offset);
             return $instance;
         }
 
@@ -68,7 +74,7 @@
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         }
 
-        public function isPasswordCorrect (){
+        public function isPasswordCorrect(){
             $con = new DBConnector;
             $found = false;
             $res = mysqli_query($con->conn, "SELECT * FROM user") or die("Error: " .mysqli_error());
@@ -108,11 +114,14 @@
             $uname = $this->username;
             $this->hashpassword();
             $pass = $this->password;
+            $image = $this->image;
+            $utc_timestamp = $this->utc_timestamp;
+            $offset = $this->offset;
 
             $con = new DBConnector;
 
-            $res = mysqli_query($con->conn, "INSERT INTO user(first_name, last_name, user_city, username, user_pass) 
-                VALUES('$fn', '$ln', '$city', '$uname', '$pass')") or die("Error: " .mysql_error());
+            $res = mysqli_query($con->conn, "INSERT INTO user(first_name, last_name, user_city, username, user_pass, image_path, time_stamp, offset) 
+                VALUES('$fn', '$ln', '$city', '$uname', '$pass', '$image', '$utc_timestamp', '$offset')") or die("Error: " .mysql_error());
             return $res;
         }
 
