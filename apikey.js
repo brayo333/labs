@@ -12,6 +12,7 @@ $(document).ready(function(){
                     $('#api_key').val(data['message']);
                 }else{
                     alert("Something went wrong. Please try again");
+                    // $("#api_key").val("Something went left");
                 }
             }
         });
